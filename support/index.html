@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pomoc - FakturyRadar</title>
+<meta name="description" content="Najczęstsze pytania o FakturyRadar i kontakt.">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://fakturyradar.github.io/en/support/">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="/"><img src="/assets/icon.svg" alt="">FakturyRadar</a>
+  <nav class="main">
+    <a href="/guide/">Instrukcja</a>
+    <a href="/support/" aria-current="page">Pomoc</a>
+    <a href="/privacy/">Prywatność</a>
+    <a class="lang" href="/en/support/" hreflang="en" lang="en">English</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Pomoc</h1>
+  <p class="lead">Odpowiedzi na najczęstsze pytania. Jeśli nie ma tu Twojego, napisz.</p>
+
+  <h2>Kontakt</h2>
+  <p>E-mail: <a href="mailto:fakturyradar@gmail.com">fakturyradar@gmail.com</a>. Odpowiadamy zwykle w ciągu dwóch dni roboczych.</p>
+  <p>Przy zgłoszeniu błędu podaj wersję aplikacji (Ustawienia → O aplikacji), wersję iOS i treść błędu z Aktywności, z kodem KSeF, jeśli jest. <strong>Nigdy nie wysyłaj tokenu KSeF.</strong></p>
+
+  <h2>Najczęstsze pytania</h2>
+
+  <details>
+    <summary>Czy to aplikacja Ministerstwa Finansów?</summary>
+    <p>Nie. FakturyRadar to niezależna aplikacja. Łączy się z KSeF przez publiczne API, tak jak programy księgowe.</p>
+  </details>
+
+  <details>
+    <summary>Skąd wziąć token KSeF?</summary>
+    <p>Zaloguj się w Aplikacji Podatnika KSeF (przez login.gov.pl), otwórz „Tokeny” i wybierz „Generuj token”. Nadaj mu nazwę, na przykład „FakturyRadar”, i zaznacz uprawnienie do przeglądania faktur. Token wyświetla się tylko raz: skopiuj go od razu i wklej w aplikacji. Szczegóły w <a href="/guide/#konto">instrukcji</a>.</p>
+  </details>
+
+  <details>
+    <summary>Czy moje dane trafiają na jakiś serwer?</summary>
+    <p>Nie. Aplikacja łączy się tylko z KSeF, bezpośrednio z Twojego urządzenia. Nie mamy serwera i nie widzimy tokenu ani faktur. Więcej w <a href="/privacy/">polityce prywatności</a>.</p>
+  </details>
+
+  <details>
+    <summary>Czy muszę codziennie otwierać aplikację?</summary>
+    <p>Nie. Pracę wykonują automatyzacje w Skrótach, w tle. Do aplikacji wracasz, żeby dodać konto lub skrót albo sprawdzić historię w Aktywności.</p>
+  </details>
+
+  <details>
+    <summary>Czy automatyzacja działa przy zablokowanym telefonie?</summary>
+    <p>Tak. Po ponownym uruchomieniu urządzenia trzeba je raz odblokować: do tego czasu iOS nie udostępnia tokenu z pęku kluczy, a przebieg kończy się czytelnym błędem.</p>
+  </details>
+
+  <details>
+    <summary>Dlaczego konto z iPhone’a nie działa na iPadzie?</summary>
+    <p>Konta i tokeny celowo zostają na urządzeniu, na którym je dodano. Skróty synchronizują się przez iCloud, więc bez tego ta sama faktura przyszłaby z każdego urządzenia. Jeśli chcesz automatyzacji na iPadzie, dodaj tam konto osobno.</p>
+  </details>
+
+  <details>
+    <summary>Skrót nic nie zwrócił. Czy to błąd?</summary>
+    <p>Prawdopodobnie nie było nowych faktur. Wtedy akcja kończy się sukcesem i nie zwraca wartości. W skrócie użyj warunku „Jeśli … nie zawiera wartości”. Każdy przebieg widać w Aktywności.</p>
+  </details>
+
+  <details>
+    <summary>Co oznacza „Osiągnięto limit zapytań KSeF”?</summary>
+    <p>KSeF pozwala na ograniczoną liczbę wyszukiwań na godzinę dla jednego konta. Aplikacja pilnuje limitu i podaje, kiedy można spróbować ponownie. Jeśli wiele skrótów działa o tej samej porze, rozłóż je w czasie.</p>
+  </details>
+
+  <details>
+    <summary>Które faktury są wyszukiwane?</summary>
+    <p>Faktury, na których Twoja firma jest nabywcą (otrzymane) lub sprzedawcą (wystawione). Faktury, na których jest podmiotem trzecim, nie są jeszcze obsługiwane.</p>
+  </details>
+
+  <details>
+    <summary>Czy faktura może przyjść dwa razy?</summary>
+    <p>Okres „Od ostatniego uruchomienia” zwraca każdą fakturę danej automatyzacji dokładnie raz, nawet po pominiętym przebiegu. Jeśli przebieg się nie powiedzie, te same faktury wrócą w następnym. Ten sam skrót na iPhonie i iPadzie zgłosi fakturę na obu.</p>
+  </details>
+
+  <details>
+    <summary>Zmieniam telefon. Co z kontami?</summary>
+    <p>Po przywróceniu kopii zapasowej konta mogą się pojawić, ale token nie jest przenoszony. Wklej go ponownie albo wygeneruj nowy w Aplikacji Podatnika.</p>
+  </details>
+
+  <details>
+    <summary>KSeF nie odpowiada.</summary>
+    <p>To problem po stronie serwerów Ministerstwa Finansów, nie Twojego konta. Następny przebieg pobierze wszystko, co zostało pominięte. Aktualności o KSeF publikuje <a href="https://ksef.podatki.gov.pl">ksef.podatki.gov.pl</a>.</p>
+  </details>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p><a href="/">FakturyRadar</a> · <a href="/privacy/">Polityka prywatności</a> · <a href="mailto:fakturyradar@gmail.com">fakturyradar@gmail.com</a></p>
+  <p>FakturyRadar to niezależna aplikacja, niezwiązana z Ministerstwem Finansów.</p>
+</div></footer>
+</body>
+</html>

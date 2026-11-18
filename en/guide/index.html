@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide - FakturyRadar</title>
+<meta name="description" content="How to connect a KSeF account, use the FakturyRadar actions in Shortcuts and write your own templates.">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="pl" href="https://fakturyradar.github.io/guide/">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="/en/"><img src="/assets/icon.svg" alt="">FakturyRadar</a>
+  <nav class="main">
+    <a href="/en/guide/" aria-current="page">Guide</a>
+    <a href="/en/support/">Support</a>
+    <a href="/en/privacy/">Privacy</a>
+    <a class="lang" href="/guide/" hreflang="pl" lang="pl">Polski</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Guide</h1>
+  <p class="lead">How to connect an account, add a ready-made shortcut and build your own from the FakturyRadar actions.</p>
+  <p>Contents: <a href="#account">KSeF account</a> · <a href="#ready">Ready-made shortcuts</a> · <a href="#actions">Actions</a> · <a href="#choosing">Choosing invoices</a> · <a href="#formats">Formats</a> · <a href="#template">Template</a> · <a href="#variables">Variables</a></p>
+
+  <h2 id="account">KSeF account</h2>
+  <ol>
+    <li>Sign in to the KSeF Taxpayer App through login.gov.pl: with mObywatel, e-dowód, online banking or Profil Zaufany.</li>
+    <li>Open "Tokeny" and choose "Generuj token".</li>
+    <li>Name it, for example "FakturyRadar", and select viewing invoices.</li>
+    <li>Copy the token and paste it into FakturyRadar with your company's tax ID (NIP). The token is shown only once; do not keep it in your notes.</li>
+    <li>Choose "Test login". When the connection works, save the account.</li>
+  </ol>
+  <p>The token is encrypted in this device's keychain and never goes to iCloud. Add the account separately on each device that should run automations. You can add several accounts, for example for several companies.</p>
+
+  <h2 id="ready">Ready-made shortcuts</h2>
+  <p>The Automations tab has five shortcuts. Tap one to add it to the Shortcuts app, then set up its automation, for example at a fixed time or when you arrive somewhere.</p>
+  <ul>
+    <li><strong>Morning invoice review</strong>: a notification listing new purchase invoices.</li>
+    <li><strong>Check invoices when I get to work</strong>: the same, when you arrive at a chosen place.</li>
+    <li><strong>Morning invoices by email</strong>: PDFs of new invoices in an email.</li>
+    <li><strong>Archive in iCloud Drive</strong>: PDFs of new invoices in the FakturyRadar folder.</li>
+    <li><strong>Monthly summary by email</strong>: last month's invoices with totals.</li>
+  </ul>
+
+  <h2 id="actions">Actions</h2>
+  <p>FakturyRadar adds three actions to Shortcuts. Each invoice action finds the invoices itself, so a shortcut needs no separate "find" step.</p>
+  <h3>Invoices from KSeF as Attachment</h3>
+  <p>Returns files: PDF (one per invoice or one combined), CSV or JSON. The PDF is the official KSeF visualization with the KSeF number and QR code, generated on the device. PDF files are named after the KSeF number by default, so files in an archive never overwrite each other.</p>
+  <h3>Invoices from KSeF</h3>
+  <p>Returns text: a list, CSV, JSON or text in your own template. For notifications, messages and reminders.</p>
+  <h3>Show Message</h3>
+  <p>Shows a notification with the FakturyRadar name and icon. Tapping it opens Activity. An empty message shows nothing.</p>
+  <p>When there are no invoices, the action succeeds without a value. Check for it with "If … has no value".</p>
+
+  <h2 id="choosing">Choosing invoices</h2>
+  <div class="table"><table>
+    <tr><th>Parameter</th><th>Description</th></tr>
+    <tr><td>Account</td><td>Empty means the only account in the app; with several, the action asks.</td></tr>
+    <tr><td>Type</td><td>Received, Issued or All.</td></tr>
+    <tr><td>Dates</td><td>Period or Date range (From, To).</td></tr>
+    <tr><td>Period</td><td>Since last run, Today, Yesterday, Last hours / days / weeks (with Count), This month, Last month.</td></tr>
+    <tr><td>Date type</td><td>KSeF acceptance date (default) or Issue date.</td></tr>
+    <tr><td>Counterparty NIP</td><td>Optional: the seller for received invoices, the buyer for issued ones.</td></tr>
+    <tr><td>Automation</td><td>An optional name (under "Show More") that the run gets in Activity.</td></tr>
+  </table></div>
+  <h3>Since last run</h3>
+  <ul>
+    <li>Returns every invoice KSeF accepted since this automation's previous run, exactly once.</li>
+    <li>The first run covers the last 7 days and today.</li>
+    <li>A skipped run loses nothing: the next one covers the whole gap.</li>
+    <li>If a run fails, the same invoices come again in the next one.</li>
+    <li>Two actions in one shortcut, such as a PDF and a notification, get the same invoices.</li>
+  </ul>
+  <p>Dates are Polish calendar days, whatever the device's time zone.</p>
+
+  <h2 id="formats">Formats</h2>
+  <div class="table"><table>
+    <tr><th>Format</th><th>Output</th></tr>
+    <tr><td>Text</td><td>The chosen Fields separated by <code>|</code>, one invoice per line.</td></tr>
+    <tr><td>CSV</td><td>A header and values separated by semicolons, ready for Numbers and Excel.</td></tr>
+    <tr><td>JSON</td><td>An array of objects with Polish keys (<code>numer</code>, <code>sprzedawca</code>, <code>brutto</code>), amounts as numbers, ISO dates.</td></tr>
+    <tr><td>Custom template</td><td>The text from the Template parameter.</td></tr>
+  </table></div>
+  <p>Amount format: Polish (1 234,56 zł) or plain (1234.56). Date format: Polish (10.11.2026) or ISO (2026-11-10).</p>
+
+  <h2 id="template">Template</h2>
+  <p>A template is text with variables in braces. The Template field comes with a working example:</p>
+  <pre><code>Nowe faktury ({liczba}):
+{#faktury}- {numer} od {sprzedawca}: {brutto}
+{/faktury}Razem: {suma_brutto}</code></pre>
+  <p>The same in English names:</p>
+  <pre><code>New invoices ({count}):
+{#invoices}- {number} from {seller}: {gross}
+{/invoices}Total: {total_gross}</code></pre>
+  <ul>
+    <li>A template with invoice variables and no block repeats for every invoice: <code>{number} | {seller} | {gross} | {due_date}</code></li>
+    <li>A <code>{#invoices}</code> … <code>{/invoices}</code> block marks the part to repeat; the text around it appears once.</li>
+    <li>A template without invoice variables appears once: <code>You have {count} new invoices for {total_gross}.</code></li>
+    <li>Case, Polish letters and the choice of space, hyphen or underscore do not matter: <code>{Due date}</code> equals <code>{due_date}</code>.</li>
+    <li>Polish and English names always work, whatever the app's language.</li>
+    <li><code>{{</code> and <code>}}</code> print literal braces.</li>
+    <li>Totals are given per currency: "250,00 EUR, 123,00 zł".</li>
+    <li>A mistake, such as an unknown variable or an unclosed block, is reported before KSeF is contacted.</li>
+  </ul>
+
+  <h2 id="variables">Variables</h2>
+  <p>The list is also in the app: Settings → Help → Template variables. Tap one to copy it.</p>
+  <div class="table"><table>
+    <tr><th>Value</th><th>English</th><th>Polish</th></tr>
+    <tr><td>Invoice number</td><td><code>{number}</code>, <code>{invoice_number}</code></td><td><code>{numer}</code>, <code>{numer_faktury}</code></td></tr>
+    <tr><td>KSeF number</td><td><code>{ksef_number}</code></td><td><code>{numer_ksef}</code></td></tr>
+    <tr><td>Invoice type</td><td><code>{type}</code></td><td><code>{rodzaj}</code></td></tr>
+    <tr><td>Issue date</td><td><code>{issue_date}</code></td><td><code>{data_wystawienia}</code></td></tr>
+    <tr><td>Sale date</td><td><code>{sale_date}</code></td><td><code>{data_sprzedazy}</code></td></tr>
+    <tr><td>Due date</td><td><code>{due_date}</code></td><td><code>{termin}</code>, <code>{termin_platnosci}</code></td></tr>
+    <tr><td>Seller: name, NIP, address</td><td><code>{seller}</code>, <code>{seller_nip}</code>, <code>{seller_address}</code></td><td><code>{sprzedawca}</code>, <code>{nip_sprzedawcy}</code>, <code>{adres_sprzedawcy}</code></td></tr>
+    <tr><td>Buyer: name, NIP, address</td><td><code>{buyer}</code>, <code>{buyer_nip}</code>, <code>{buyer_address}</code></td><td><code>{nabywca}</code>, <code>{nip_nabywcy}</code>, <code>{adres_nabywcy}</code></td></tr>
+    <tr><td>Net, VAT, gross</td><td><code>{net}</code>, <code>{vat}</code>, <code>{gross}</code></td><td><code>{netto}</code>, <code>{vat}</code>, <code>{brutto}</code></td></tr>
+    <tr><td>Amount due</td><td><code>{amount_due}</code></td><td><code>{do_zaplaty}</code></td></tr>
+    <tr><td>Currency</td><td><code>{currency}</code></td><td><code>{waluta}</code></td></tr>
+    <tr><td>VAT breakdown</td><td><code>{vat_rates}</code></td><td><code>{stawki_vat}</code></td></tr>
+    <tr><td>Payment method</td><td><code>{payment_method}</code></td><td><code>{forma_platnosci}</code></td></tr>
+    <tr><td>Bank account</td><td><code>{bank_account}</code></td><td><code>{rachunek}</code></td></tr>
+    <tr><td>Transfer title</td><td><code>{transfer_title}</code></td><td><code>{tytul_przelewu}</code></td></tr>
+    <tr><td>Payment status</td><td><code>{payment_status}</code></td><td><code>{status_platnosci}</code></td></tr>
+    <tr><td>Line items</td><td><code>{items}</code></td><td><code>{pozycje}</code></td></tr>
+    <tr><td>Notes</td><td><code>{notes}</code></td><td><code>{uwagi}</code></td></tr>
+    <tr><td>Block</td><td><code>{#invoices}</code> … <code>{/invoices}</code></td><td><code>{#faktury}</code> … <code>{/faktury}</code></td></tr>
+    <tr><td>Number of invoices</td><td><code>{count}</code></td><td><code>{liczba}</code></td></tr>
+    <tr><td>Totals</td><td><code>{total_net}</code>, <code>{total_vat}</code>, <code>{total_gross}</code></td><td><code>{suma_netto}</code>, <code>{suma_vat}</code>, <code>{suma_brutto}</code></td></tr>
+    <tr><td>Account name</td><td><code>{account}</code></td><td><code>{konto}</code></td></tr>
+  </table></div>
+  <ul>
+    <li>A missing value is empty; the text around it is kept, so CSV columns stay aligned.</li>
+    <li><strong>Amount due</strong> is what the invoice says is owed: 0 when it is marked paid. It cannot know about payments made after it was issued.</li>
+    <li><strong>Bank account</strong> is the factor's account when the invoice names one, otherwise the seller's first account.</li>
+    <li>Variables that come from the search (numbers, type, issue date, parties, amounts, currency, totals) need no invoice download, so they are the fastest.</li>
+  </ul>
+
+  <h2>Activity</h2>
+  <p>Every run of an invoice action is listed in Activity: the result, invoice summaries and, for an error, its description, the KSeF code and a suggested fix. The history stays on the device for 90 days.</p>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p><a href="/en/">FakturyRadar</a> · <a href="/en/support/">Support</a> · <a href="/en/privacy/">Privacy Policy</a></p>
+  <p>FakturyRadar is an independent app, not affiliated with the Polish Ministry of Finance.</p>
+</div></footer>
+</body>
+</html>

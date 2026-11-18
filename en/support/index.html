@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support - FakturyRadar</title>
+<meta name="description" content="Common questions about FakturyRadar and how to contact us.">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="pl" href="https://fakturyradar.github.io/support/">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="/en/"><img src="/assets/icon.svg" alt="">FakturyRadar</a>
+  <nav class="main">
+    <a href="/en/guide/">Guide</a>
+    <a href="/en/support/" aria-current="page">Support</a>
+    <a href="/en/privacy/">Privacy</a>
+    <a class="lang" href="/support/" hreflang="pl" lang="pl">Polski</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Support</h1>
+  <p class="lead">Answers to common questions. If yours is not here, get in touch.</p>
+
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:fakturyradar@gmail.com">fakturyradar@gmail.com</a>. We usually reply within two business days.</p>
+  <p>When reporting a problem, include the app version (Settings → About), your iOS version and the error from Activity, with the KSeF code if there is one. <strong>Never send your KSeF token.</strong></p>
+
+  <h2>Common questions</h2>
+
+  <details>
+    <summary>Is this a Ministry of Finance app?</summary>
+    <p>No. FakturyRadar is an independent app. It connects to KSeF through the public API, the same way accounting software does.</p>
+  </details>
+
+  <details>
+    <summary>Where do I get a KSeF token?</summary>
+    <p>Sign in to the KSeF Taxpayer App (through login.gov.pl), open "Tokeny" and choose "Generuj token". Give it a name, such as "FakturyRadar", and select the permission to view invoices. The token is shown only once: copy it right away and paste it into the app. Details are in the <a href="/en/guide/#account">guide</a>.</p>
+  </details>
+
+  <details>
+    <summary>Does my data go to a server?</summary>
+    <p>No. The app connects only to KSeF, directly from your device. We have no server and never see your token or invoices. See the <a href="/en/privacy/">privacy policy</a>.</p>
+  </details>
+
+  <details>
+    <summary>Do I need to open the app every day?</summary>
+    <p>No. Automations in Shortcuts do the work in the background. You come back to the app to add an account or a shortcut, or to check the history in Activity.</p>
+  </details>
+
+  <details>
+    <summary>Do automations run while the phone is locked?</summary>
+    <p>Yes. After a restart, unlock the device once: until then iOS keeps the token in the keychain unavailable, and a run ends with a clear error.</p>
+  </details>
+
+  <details>
+    <summary>Why does my iPhone account not work on my iPad?</summary>
+    <p>Accounts and tokens stay on the device where you added them, on purpose. Shortcuts sync over iCloud, so otherwise the same invoice would arrive from every device. To run automations on the iPad, add the account there separately.</p>
+  </details>
+
+  <details>
+    <summary>My shortcut returned nothing. Is that an error?</summary>
+    <p>Most likely there were no new invoices. The action then succeeds without a value. Use "If … has no value" in your shortcut. Every run is listed in Activity.</p>
+  </details>
+
+  <details>
+    <summary>What does "KSeF request limit reached" mean?</summary>
+    <p>KSeF allows a limited number of searches per hour for each account. The app keeps within the limit and tells you when to try again. If many shortcuts run at the same time, spread them out.</p>
+  </details>
+
+  <details>
+    <summary>Which invoices are found?</summary>
+    <p>Invoices where your company is the buyer (received) or the seller (issued). Invoices where it is a third party are not supported yet.</p>
+  </details>
+
+  <details>
+    <summary>Can an invoice arrive twice?</summary>
+    <p>The "Since last run" period returns each invoice to an automation exactly once, even after a skipped run. If a run fails, the same invoices come again in the next one. The same shortcut on an iPhone and an iPad reports an invoice on both.</p>
+  </details>
+
+  <details>
+    <summary>I'm moving to a new phone. What about my accounts?</summary>
+    <p>After restoring a backup the accounts may appear, but the token is not transferred. Paste it again or generate a new one in the Taxpayer App.</p>
+  </details>
+
+  <details>
+    <summary>KSeF is not responding.</summary>
+    <p>That is a problem with the Ministry of Finance servers, not your account. The next run picks up everything that was missed. KSeF news is published at <a href="https://ksef.podatki.gov.pl">ksef.podatki.gov.pl</a>.</p>
+  </details>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p><a href="/en/">FakturyRadar</a> · <a href="/en/privacy/">Privacy Policy</a> · <a href="mailto:fakturyradar@gmail.com">fakturyradar@gmail.com</a></p>
+  <p>FakturyRadar is an independent app, not affiliated with the Polish Ministry of Finance.</p>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instrukcja - FakturyRadar</title>
+<meta name="description" content="Jak podłączyć konto KSeF, korzystać z akcji FakturyRadar w Skrótach i pisać własne szablony.">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://fakturyradar.github.io/en/guide/">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="/"><img src="/assets/icon.svg" alt="">FakturyRadar</a>
+  <nav class="main">
+    <a href="/guide/" aria-current="page">Instrukcja</a>
+    <a href="/support/">Pomoc</a>
+    <a href="/privacy/">Prywatność</a>
+    <a class="lang" href="/en/guide/" hreflang="en" lang="en">English</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Instrukcja</h1>
+  <p class="lead">Jak podłączyć konto, dodać gotowy skrót i zbudować własny z akcji FakturyRadar.</p>
+  <p>Spis treści: <a href="#konto">Konto KSeF</a> · <a href="#gotowe">Gotowe skróty</a> · <a href="#akcje">Akcje</a> · <a href="#wybor">Wybór faktur</a> · <a href="#formaty">Formaty</a> · <a href="#szablon">Szablon</a> · <a href="#zmienne">Zmienne</a></p>
+
+  <h2 id="konto">Konto KSeF</h2>
+  <ol>
+    <li>Zaloguj się w Aplikacji Podatnika KSeF przez login.gov.pl: mObywatelem, e-dowodem, bankowością elektroniczną lub Profilem Zaufanym.</li>
+    <li>Otwórz „Tokeny” i wybierz „Generuj token”.</li>
+    <li>Nadaj nazwę, na przykład „FakturyRadar”, i zaznacz przeglądanie faktur.</li>
+    <li>Skopiuj token i wklej go w FakturyRadar razem z NIP-em firmy. Token wyświetla się tylko raz; nie trzymaj go w notatkach.</li>
+    <li>Wybierz „Testuj logowanie”. Gdy połączenie się uda, zapisz konto.</li>
+  </ol>
+  <p>Token jest zaszyfrowany w pęku kluczy tego urządzenia i nie trafia do iCloud. Na każdym urządzeniu, na którym mają działać automatyzacje, dodaj konto osobno. Możesz dodać kilka kont, na przykład dla kilku firm.</p>
+
+  <h2 id="gotowe">Gotowe skróty</h2>
+  <p>W zakładce Automatyzacje znajdziesz pięć skrótów. Dotknij, aby dodać skrót do aplikacji Skróty, a potem ustaw jego automatyzację, na przykład o stałej porze lub po przyjeździe na miejsce.</p>
+  <ul>
+    <li><strong>Poranny przegląd faktur</strong>: powiadomienie z listą nowych faktur zakupowych.</li>
+    <li><strong>Sprawdź faktury po przyjeździe do pracy</strong>: to samo, gdy dojeżdżasz do wybranego miejsca.</li>
+    <li><strong>Poranny przegląd faktur na maila</strong>: PDF-y nowych faktur w wiadomości e-mail.</li>
+    <li><strong>Archiwum w iCloud Drive</strong>: PDF-y nowych faktur w folderze FakturyRadar.</li>
+    <li><strong>Podsumowanie miesiąca na maila</strong>: faktury z poprzedniego miesiąca z sumami.</li>
+  </ul>
+
+  <h2 id="akcje">Akcje</h2>
+  <p>FakturyRadar dodaje do Skrótów trzy akcje. Każda akcja z fakturami sama je wyszukuje, więc skrót nie potrzebuje osobnego kroku „znajdź”.</p>
+  <h3>Faktury z KSeF jako załącznik</h3>
+  <p>Zwraca pliki: PDF (jeden na fakturę albo jeden połączony), CSV lub JSON. PDF to oficjalna wizualizacja KSeF z numerem KSeF i kodem QR, generowana na urządzeniu. Nazwa pliku PDF to domyślnie numer KSeF, więc pliki w archiwum nigdy się nie nadpisują.</p>
+  <h3>Faktury z KSeF</h3>
+  <p>Zwraca tekst: listę, CSV, JSON albo tekst według Twojego szablonu. Do powiadomień, wiadomości i przypomnień.</p>
+  <h3>Pokaż powiadomienie</h3>
+  <p>Pokazuje powiadomienie z nazwą i ikoną FakturyRadar. Dotknięcie otwiera Aktywność. Pusta wiadomość niczego nie pokazuje.</p>
+  <p>Gdy nie ma faktur, akcja kończy się sukcesem i nie zwraca wartości. Sprawdzisz to warunkiem „Jeśli … nie zawiera wartości”.</p>
+
+  <h2 id="wybor">Wybór faktur</h2>
+  <div class="table"><table>
+    <tr><th>Parametr</th><th>Opis</th></tr>
+    <tr><td>Konto</td><td>Puste oznacza jedyne konto w aplikacji; przy kilku akcja zapyta.</td></tr>
+    <tr><td>Rodzaj</td><td>Otrzymane, Wystawione lub Wszystkie.</td></tr>
+    <tr><td>Daty</td><td>Okres albo Zakres dat (Od, Do).</td></tr>
+    <tr><td>Okres</td><td>Od ostatniego uruchomienia, Dzisiaj, Wczoraj, Ostatnie godziny / dni / tygodnie (z Liczbą), Ten miesiąc, Poprzedni miesiąc.</td></tr>
+    <tr><td>Rodzaj daty</td><td>Data przyjęcia w KSeF (domyślnie) lub Data wystawienia.</td></tr>
+    <tr><td>NIP kontrahenta</td><td>Opcjonalny: sprzedawca dla otrzymanych, nabywca dla wystawionych.</td></tr>
+    <tr><td>Automatyzacja</td><td>Opcjonalna nazwa (w „Pokaż więcej”), pod którą przebieg widać w Aktywności.</td></tr>
+  </table></div>
+  <h3>Od ostatniego uruchomienia</h3>
+  <ul>
+    <li>Zwraca każdą fakturę przyjętą przez KSeF od poprzedniego przebiegu tej automatyzacji, dokładnie raz.</li>
+    <li>Pierwszy przebieg obejmuje ostatnie 7 dni i dzisiaj.</li>
+    <li>Pominięty przebieg niczego nie gubi: następny obejmie całą przerwę.</li>
+    <li>Jeśli przebieg się nie powiedzie, te same faktury wrócą w następnym.</li>
+    <li>Dwie akcje w jednym skrócie, na przykład PDF i powiadomienie, dostają te same faktury.</li>
+  </ul>
+  <p>Daty to polskie dni kalendarzowe, niezależnie od strefy czasowej urządzenia.</p>
+
+  <h2 id="formaty">Formaty</h2>
+  <div class="table"><table>
+    <tr><th>Format</th><th>Wynik</th></tr>
+    <tr><td>Tekst</td><td>Wybrane Pola rozdzielone <code>|</code>, jedna faktura w wierszu.</td></tr>
+    <tr><td>CSV</td><td>Nagłówek i wartości rozdzielone średnikiem, gotowe dla Numbers i Excela.</td></tr>
+    <tr><td>JSON</td><td>Tablica obiektów z polskimi kluczami (<code>numer</code>, <code>sprzedawca</code>, <code>brutto</code>), kwoty jako liczby, daty ISO.</td></tr>
+    <tr><td>Własny szablon</td><td>Tekst z parametru Szablon.</td></tr>
+  </table></div>
+  <p>Format kwot: polski (1 234,56 zł) lub prosty (1234.56). Format dat: polski (10.11.2026) lub ISO (2026-11-10).</p>
+
+  <h2 id="szablon">Szablon</h2>
+  <p>Szablon to tekst ze zmiennymi w nawiasach klamrowych. Pole Szablon ma od razu działający przykład:</p>
+  <pre><code>Nowe faktury ({liczba}):
+{#faktury}- {numer} od {sprzedawca}: {brutto}
+{/faktury}Razem: {suma_brutto}</code></pre>
+  <ul>
+    <li>Szablon ze zmiennymi faktury bez bloku powtarza się dla każdej faktury: <code>{numer} | {sprzedawca} | {brutto} | {termin}</code></li>
+    <li>Blok <code>{#faktury}</code> … <code>{/faktury}</code> wyznacza część powtarzaną; tekst wokół pojawia się raz.</li>
+    <li>Szablon bez zmiennych faktury pojawia się raz: <code>Masz {liczba} nowe faktury na {suma_brutto}.</code></li>
+    <li>Wielkość liter, polskie znaki i wybór spacji, myślnika lub podkreślenia nie mają znaczenia: <code>{Termin płatności}</code> to to samo co <code>{termin_platnosci}</code>.</li>
+    <li>Polskie i angielskie nazwy działają zawsze, niezależnie od języka aplikacji.</li>
+    <li><code>{{</code> i <code>}}</code> wstawiają zwykłe nawiasy.</li>
+    <li>Sumy są podawane dla każdej waluty osobno: „250,00 EUR, 123,00 zł”.</li>
+    <li>Błąd w szablonie, np. nieznana zmienna lub niezamknięty blok, jest zgłaszany przed połączeniem z KSeF.</li>
+  </ul>
+
+  <h2 id="zmienne">Zmienne</h2>
+  <p>Listę znajdziesz też w aplikacji: Ustawienia → Pomoc → Zmienne szablonu. Dotknięcie kopiuje zmienną.</p>
+  <div class="table"><table>
+    <tr><th>Wartość</th><th>Po polsku</th><th>Po angielsku</th></tr>
+    <tr><td>Numer faktury</td><td><code>{numer}</code>, <code>{numer_faktury}</code></td><td><code>{number}</code>, <code>{invoice_number}</code></td></tr>
+    <tr><td>Numer KSeF</td><td><code>{numer_ksef}</code></td><td><code>{ksef_number}</code></td></tr>
+    <tr><td>Rodzaj faktury</td><td><code>{rodzaj}</code></td><td><code>{type}</code></td></tr>
+    <tr><td>Data wystawienia</td><td><code>{data_wystawienia}</code></td><td><code>{issue_date}</code></td></tr>
+    <tr><td>Data sprzedaży</td><td><code>{data_sprzedazy}</code></td><td><code>{sale_date}</code></td></tr>
+    <tr><td>Termin płatności</td><td><code>{termin}</code>, <code>{termin_platnosci}</code></td><td><code>{due_date}</code></td></tr>
+    <tr><td>Sprzedawca: nazwa, NIP, adres</td><td><code>{sprzedawca}</code>, <code>{nip_sprzedawcy}</code>, <code>{adres_sprzedawcy}</code></td><td><code>{seller}</code>, <code>{seller_nip}</code>, <code>{seller_address}</code></td></tr>
+    <tr><td>Nabywca: nazwa, NIP, adres</td><td><code>{nabywca}</code>, <code>{nip_nabywcy}</code>, <code>{adres_nabywcy}</code></td><td><code>{buyer}</code>, <code>{buyer_nip}</code>, <code>{buyer_address}</code></td></tr>
+    <tr><td>Netto, VAT, brutto</td><td><code>{netto}</code>, <code>{vat}</code>, <code>{brutto}</code></td><td><code>{net}</code>, <code>{vat}</code>, <code>{gross}</code></td></tr>
+    <tr><td>Do zapłaty</td><td><code>{do_zaplaty}</code></td><td><code>{amount_due}</code></td></tr>
+    <tr><td>Waluta</td><td><code>{waluta}</code></td><td><code>{currency}</code></td></tr>
+    <tr><td>Stawki VAT</td><td><code>{stawki_vat}</code></td><td><code>{vat_rates}</code></td></tr>
+    <tr><td>Forma płatności</td><td><code>{forma_platnosci}</code></td><td><code>{payment_method}</code></td></tr>
+    <tr><td>Rachunek bankowy</td><td><code>{rachunek}</code></td><td><code>{bank_account}</code></td></tr>
+    <tr><td>Tytuł przelewu</td><td><code>{tytul_przelewu}</code></td><td><code>{transfer_title}</code></td></tr>
+    <tr><td>Status płatności</td><td><code>{status_platnosci}</code></td><td><code>{payment_status}</code></td></tr>
+    <tr><td>Pozycje</td><td><code>{pozycje}</code></td><td><code>{items}</code></td></tr>
+    <tr><td>Uwagi</td><td><code>{uwagi}</code></td><td><code>{notes}</code></td></tr>
+    <tr><td>Blok</td><td><code>{#faktury}</code> … <code>{/faktury}</code></td><td><code>{#invoices}</code> … <code>{/invoices}</code></td></tr>
+    <tr><td>Liczba faktur</td><td><code>{liczba}</code></td><td><code>{count}</code></td></tr>
+    <tr><td>Sumy</td><td><code>{suma_netto}</code>, <code>{suma_vat}</code>, <code>{suma_brutto}</code></td><td><code>{total_net}</code>, <code>{total_vat}</code>, <code>{total_gross}</code></td></tr>
+    <tr><td>Nazwa konta</td><td><code>{konto}</code></td><td><code>{account}</code></td></tr>
+  </table></div>
+  <ul>
+    <li>Brakująca wartość jest pusta; tekst wokół niej zostaje, więc kolumny CSV się nie przesuwają.</li>
+    <li><strong>Do zapłaty</strong> to kwota, którą faktura wskazuje jako należną: 0, gdy jest oznaczona jako zapłacona. Nie uwzględnia płatności dokonanych po wystawieniu.</li>
+    <li><strong>Rachunek bankowy</strong> to rachunek faktora, jeśli faktura go wskazuje, w przeciwnym razie pierwszy rachunek sprzedawcy.</li>
+    <li>Zmienne z wyszukiwania (numery, rodzaj, data wystawienia, strony, kwoty, waluta, sumy) nie wymagają pobierania faktury, więc działają najszybciej.</li>
+  </ul>
+
+  <h2>Aktywność</h2>
+  <p>Każdy przebieg akcji z fakturami trafia do Aktywności: wynik, podsumowania faktur, a przy błędzie jego opis, kod KSeF i podpowiedź, co zrobić. Historia jest przechowywana na urządzeniu przez 90 dni.</p>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p><a href="/">FakturyRadar</a> · <a href="/support/">Pomoc</a> · <a href="/privacy/">Polityka prywatności</a></p>
+  <p>FakturyRadar to niezależna aplikacja, niezwiązana z Ministerstwem Finansów.</p>
+</div></footer>
+</body>
+</html>
