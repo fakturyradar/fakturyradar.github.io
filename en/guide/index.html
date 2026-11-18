@@ -26,12 +26,12 @@
   <p>Contents: <a href="#account">KSeF account</a> · <a href="#ready">Ready-made shortcuts</a> · <a href="#actions">Actions</a> · <a href="#choosing">Choosing invoices</a> · <a href="#formats">Formats</a> · <a href="#template">Template</a> · <a href="#variables">Variables</a></p>
 
   <h2 id="account">KSeF account</h2>
-  <ol>
-    <li>Sign in to the KSeF Taxpayer App through login.gov.pl: with mObywatel, e-dowód, online banking or Profil Zaufany.</li>
-    <li>Open "Tokeny" and choose "Generuj token".</li>
-    <li>Name it, for example "FakturyRadar", and select viewing invoices.</li>
-    <li>Copy the token and paste it into FakturyRadar with your company's tax ID (NIP). The token is shown only once; do not keep it in your notes.</li>
-    <li>Choose "Test login". When the connection works, save the account.</li>
+  <ol class="steps">
+    <li><strong>Sign in to KSeF</strong><span>Through login.gov.pl in the KSeF Taxpayer App: with mObywatel, e-dowód, online banking or Profil Zaufany.</span><img src="/assets/guide/token-help-login.jpg" width="660" height="632" alt="KSeF Taxpayer App sign-in page" loading="lazy"></li>
+    <li><strong>Open "Tokeny" and choose "Generuj token"</strong><span>You will find them in the site menu.</span><img src="/assets/guide/token-help-menu.jpg" width="660" height="588" alt="Taxpayer App menu with the Tokeny item" loading="lazy"></li>
+    <li><strong>Name it and select viewing invoices</strong><span>For example, "FakturyRadar".</span><img src="/assets/guide/token-help-generate.jpg" width="660" height="1034" alt="Token form with the permission to view invoices" loading="lazy"></li>
+    <li><strong>Copy the token and paste it into FakturyRadar</strong><span>With your company's tax ID (NIP). The token is shown only once. Do not keep it in your notes.</span><img src="/assets/guide/token-help-copy.jpg" width="660" height="378" alt="Generated token with the copy button" loading="lazy"></li>
+    <li><strong>Tap "Test login"</strong><span>When the connection works, save the account.</span></li>
   </ol>
   <p>The token is encrypted in this device's keychain and never goes to iCloud. Add the account separately on each device that should run automations. You can add several accounts, for example for several companies.</p>
 
@@ -44,6 +44,24 @@
     <li><strong>Archive in iCloud Drive</strong>: PDFs of new invoices in the FakturyRadar folder.</li>
     <li><strong>Monthly summary by email</strong>: last month's invoices with totals.</li>
   </ul>
+  <h3>After adding a shortcut</h3>
+  <p>iOS adds the shortcut with its automation off, and only you can turn it on.</p>
+  <p><strong>Shortcuts that run at a set time</strong></p>
+  <ol class="steps">
+    <li><strong>Tap Edit</strong><span>Shortcuts first shows a preview of the shortcut.</span><picture><source srcset="/assets/guide/guide-edit-en-dark.jpg" media="(prefers-color-scheme: dark)"><img src="/assets/guide/guide-edit-en-light.jpg" width="660" height="430" alt="Shortcut preview with the Edit button" loading="lazy"></picture></li>
+    <li><strong>Open the first step</strong><span>Tap the arrow next to the time.</span><picture><source srcset="/assets/guide/guide-step-en-dark.jpg" media="(prefers-color-scheme: dark)"><img src="/assets/guide/guide-step-en-light.jpg" width="660" height="168" alt="The shortcut's first step with the time" loading="lazy"></picture></li>
+    <li><strong>Turn on Automation</strong><span>The shortcut then runs on its own.</span><picture><source srcset="/assets/guide/guide-toggle-en-dark.jpg" media="(prefers-color-scheme: dark)"><img src="/assets/guide/guide-toggle-en-light.jpg" width="660" height="376" alt="The Automation switch" loading="lazy"></picture></li>
+  </ol>
+  <p><strong>Check invoices when I get to work</strong></p>
+  <ol class="steps">
+    <li><strong>Tap Edit</strong><span>Shortcuts first shows a preview of the shortcut.</span><picture><source srcset="/assets/guide/guide-edit-en-dark.jpg" media="(prefers-color-scheme: dark)"><img src="/assets/guide/guide-edit-en-light.jpg" width="660" height="430" alt="Shortcut preview with the Edit button" loading="lazy"></picture></li>
+    <li><strong>Choose your work location</strong><span>Tap Location in the first step.</span><picture><source srcset="/assets/guide/guide-place-en-dark.jpg" media="(prefers-color-scheme: dark)"><img src="/assets/guide/guide-place-en-light.jpg" width="660" height="161" alt="The shortcut's first step with the location" loading="lazy"></picture></li>
+    <li><strong>Turn on Automation</strong><span>Tap the arrow next to the location to see the switch.</span><picture><source srcset="/assets/guide/guide-place-toggle-en-dark.jpg" media="(prefers-color-scheme: dark)"><img src="/assets/guide/guide-place-toggle-en-light.jpg" width="660" height="298" alt="The Automation switch next to the location" loading="lazy"></picture></li>
+  </ol>
+  <p><strong>Shortcuts that send email</strong></p>
+  <ol class="steps">
+    <li><strong>Add recipients</strong><span>Tap Recipients in the Send Email step and enter the address.</span><picture><source srcset="/assets/guide/guide-recipients-en-dark.jpg" media="(prefers-color-scheme: dark)"><img src="/assets/guide/guide-recipients-en-light.jpg" width="660" height="204" alt="The Send Email step with the Recipients field" loading="lazy"></picture></li>
+  </ol>
 
   <h2 id="actions">Actions</h2>
   <p>FakturyRadar adds three actions to Shortcuts. Each invoice action finds the invoices itself, so a shortcut needs no separate "find" step.</p>

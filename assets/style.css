@@ -125,3 +125,32 @@ footer.site p { margin: 0 0 6px; }
   .hero img { width: 72px; height: 72px; }
   .pillars { grid-template-columns: 1fr; }
 }
+
+ol.steps { list-style: none; counter-reset: step; padding: 0; margin: 12px 0 24px; }
+ol.steps > li { counter-increment: step; position: relative; padding-left: 40px; margin-bottom: 22px; }
+ol.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 26px;
+  text-align: center;
+}
+ol.steps strong { display: block; }
+ol.steps span { display: block; color: var(--muted); }
+ol.steps img {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
